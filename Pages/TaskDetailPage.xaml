@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:TarefasApp.Models" x:Class="TarefasApp.Pages.TaskDetailPage"
+             x:DataType="models:TaskItem" Title="Detalhes" BackgroundColor="{StaticResource PageBackground}">
+    <ScrollView>
+        <VerticalStackLayout Padding="20,24" Spacing="18" MaximumWidthRequest="720" HorizontalOptions="Center">
+            <Border Style="{StaticResource Card}" Padding="24">
+                <VerticalStackLayout Spacing="13">
+                    <Border BackgroundColor="{Binding PriorityColor}" StrokeThickness="0" Padding="10,5" StrokeShape="RoundRectangle 14" HorizontalOptions="Start">
+                        <Label Text="{Binding PriorityBadge}" TextColor="White" FontAttributes="Bold" FontSize="11" />
+                    </Border>
+                    <Label Text="{Binding Title}" FontSize="28" FontAttributes="Bold" TextColor="{StaticResource MainText}" LineBreakMode="WordWrap" />
+                    <BoxView HeightRequest="1" Color="{StaticResource BorderColor}" Margin="0,3" />
+                    <Label Text="DESCRIÇÃO" Style="{StaticResource FieldCaption}" />
+                    <Label Text="{Binding Description}" FontSize="16" TextColor="{StaticResource MainText}" LineHeight="1.25" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Border Style="{StaticResource InfoCard}">
+                    <VerticalStackLayout Spacing="7">
+                        <Label Text="◷" FontSize="23" TextColor="{StaticResource Primary}" />
+                        <Label Text="DATA DE CRIAÇÃO" Style="{StaticResource FieldCaption}" />
+                        <Label Text="{Binding CreatedAtText}" FontAttributes="Bold" TextColor="{StaticResource MainText}" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource InfoCard}">
+                    <VerticalStackLayout Spacing="7">
+                        <Label Text="◆" FontSize="20" TextColor="{Binding PriorityColor}" />
+                        <Label Text="PRIORIDADE" Style="{StaticResource FieldCaption}" />
+                        <Label Text="{Binding Priority}" FontAttributes="Bold" TextColor="{StaticResource MainText}" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12" Margin="0,8,0,0">
+                <Button Text="✎  Editar" Style="{StaticResource PrimaryButton}" Clicked="OnEditClicked" />
+                <Button Grid.Column="1" Text="Excluir" Style="{StaticResource DangerButton}" Clicked="OnDeleteClicked" />
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

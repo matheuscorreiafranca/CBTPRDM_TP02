@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:TarefasApp.Models" x:Class="TarefasApp.MainPage"
+             Title="Minhas tarefas" BackgroundColor="{StaticResource PageBackground}" Shell.NavBarIsVisible="False">
+    <Grid RowDefinitions="Auto,*">
+        <Border Grid.Row="0" BackgroundColor="{StaticResource Primary}" StrokeThickness="0" Padding="24,26,24,30">
+            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto" RowSpacing="5">
+                <Label Text="Tarefas" Style="{StaticResource HeroTitle}" />
+                <Label Grid.Row="1" x:Name="SummaryLabel" TextColor="#DCD8FF" FontSize="14" />
+                <Button Grid.Column="1" Grid.RowSpan="2" Text="＋  Adicionar" Style="{StaticResource HeaderButton}"
+                        Clicked="OnAddClicked" SemanticProperties.Hint="Abre o formulário para adicionar uma tarefa" />
+            </Grid>
+        </Border>
+        <Grid Grid.Row="1" Padding="20,22,20,16">
+            <CollectionView x:Name="TasksView" ItemsSource="{Binding Tasks}" SelectionMode="Single" SelectionChanged="OnSelectionChanged">
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="10" Padding="24">
+                        <Border Style="{StaticResource EmptyIcon}"><Label Text="✓" FontSize="32" TextColor="{StaticResource Primary}" HorizontalTextAlignment="Center" /></Border>
+                        <Label Text="Tudo em dia!" FontSize="22" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+                        <Label Text="Adicione uma tarefa para começar." Style="{StaticResource MutedText}" HorizontalTextAlignment="Center" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemsLayout><LinearItemsLayout Orientation="Vertical" ItemSpacing="14" /></CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:TaskItem">
+                        <Border Style="{StaticResource Card}">
+                            <Grid ColumnDefinitions="5,*,Auto" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="15" RowSpacing="7">
+                                <BoxView Grid.RowSpan="3" Color="{Binding PriorityColor}" CornerRadius="3" />
+                                <Label Grid.Column="1" Text="{Binding Title}" Style="{StaticResource CardTitle}" LineBreakMode="TailTruncation" />
+                                <Border Grid.Column="2" BackgroundColor="{Binding PriorityColor}" StrokeThickness="0" Padding="9,4" StrokeShape="RoundRectangle 12">
+                                    <Label Text="{Binding PriorityBadge}" TextColor="White" FontSize="10" FontAttributes="Bold" />
+                                </Border>
+                                <Label Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Description}" Style="{StaticResource MutedText}" MaxLines="2" />
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding CreatedAtText, StringFormat='Criada em {0}'}" FontSize="12" TextColor="{StaticResource SubtleText}" />
+                                <Label Grid.Row="2" Grid.Column="2" Text="Ver detalhes  ›" TextColor="{StaticResource Primary}" FontAttributes="Bold" FontSize="12" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </Grid>
+</ContentPage>
